@@ -4,7 +4,6 @@
 # 7/2/2015
 
 class DataValidation
-
   def self.options_include?(options = ['Y', 'N'], choose)
     choose = choose.upcase
     options.include?(choose)
@@ -14,7 +13,6 @@ class DataValidation
     choose = choose.upcase
     choose == 'Y'
   end
-
 end
 
 class Player
@@ -23,26 +21,21 @@ class Player
   def initialize(name)
     @name = name    
   end
-
 end
 
 class Human < Player
-
   def pick_hand
     begin 
       puts "Choose one: (P/R/S)"
       your_choose = gets.chomp
     end while !DataValidation.options_include?(options = Game::GAME_OPTIONS.keys, choose = your_choose)
-
     self.hand = your_choose.upcase    
   end
-
 end
 
 class Computer < Player
   def pick_hand
-    choice = Game::GAME_OPTIONS.keys.sample
-    self.hand = choice
+    self.hand = Game::GAME_OPTIONS.keys.sample
   end
 end
 
@@ -59,21 +52,21 @@ class Game
   def you_win
     if player.hand == 'P'
       if computer.hand == 'R'
-        you_win = true
+        true
       else
-        you_win = false
+        false
       end
     elsif player.hand == 'R'
       if computer.hand == 'S'
-        you_win = true
+        true
       else
-        you_win = false
+        false
       end
     elsif player.hand == 'S'
       if computer.hand == 'P'
-        you_win = true
+        true
       else
-        you_win = false
+        false
       end      
     end
   end
@@ -81,7 +74,6 @@ class Game
   def compare_hand
     if player.hand == computer.hand
       puts "It's a tie."
-
     elsif you_win
       puts "#{GAME_OPTIONS[player.hand]} wraps #{GAME_OPTIONS[computer.hand]}!"
       puts "You won!"
@@ -96,8 +88,8 @@ class Game
     puts "Play Paper Rock Scissors! #{player.name}"
 
     begin
-      self.player.pick_hand
-      self.computer.pick_hand
+      player.pick_hand
+      computer.pick_hand
 
       puts "You picked #{GAME_OPTIONS[player.hand]} and computer picked #{GAME_OPTIONS[computer.hand]}."
     
@@ -108,14 +100,8 @@ class Game
         continue = gets.chomp
       end while !DataValidation.options_include?(choose = continue)
     end while DataValidation.continue_next(continue)
-
   end
 end
 
 game = Game.new('Vic')
-
 game.play
-
-
-
-
